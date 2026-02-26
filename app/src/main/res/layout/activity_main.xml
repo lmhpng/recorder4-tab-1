@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_main">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/header_gradient"
+        android:orientation="vertical"
+        android:paddingTop="52dp"
+        android:paddingBottom="28dp"
+        android:paddingHorizontal="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="20dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="智能录音机"
+                android:textColor="#FFFFFF"
+                android:textSize="22sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/tvRecordingCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/status_capsule"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:text="0 条录音"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="00:00"
+            android:textColor="#FFFFFF"
+            android:textSize="64sp"
+            android:textStyle="bold"
+            android:fontFamily="monospace"
+            android:letterSpacing="-0.03"
+            android:layout_marginBottom="14dp"/>
+
+        <com.voicerecorder.app.WaveformView
+            android:id="@+id/waveformView"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="14dp"/>
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="轻触下方按钮开始录音"
+            android:textColor="#CCFFFFFF"
+            android:textSize="13sp"/>
+    </LinearLayout>
+
+    <!-- 录音按钮区 -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@color/bg_main">
+        <View android:id="@+id/ringOuter" android:layout_width="106dp" android:layout_height="106dp"
+            android:layout_centerInParent="true" android:background="@drawable/record_btn_ring_outer"/>
+        <View android:id="@+id/ringMid" android:layout_width="88dp" android:layout_height="88dp"
+            android:layout_centerInParent="true" android:background="@drawable/record_btn_ring_mid"/>
+        <LinearLayout android:id="@+id/fabRecord" android:layout_width="68dp" android:layout_height="68dp"
+            android:layout_centerInParent="true" android:background="@drawable/record_btn_main"
+            android:gravity="center" android:elevation="8dp">
+            <ImageView android:id="@+id/ivRecordIcon" android:layout_width="26dp" android:layout_height="26dp"
+                android:src="@drawable/ic_mic" app:tint="@color/white"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!-- 录音列表 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="8dp">
+            <View android:layout_width="4dp" android:layout_height="18dp"
+                android:background="@drawable/card_accent_bar" android:layout_marginEnd="8dp"/>
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:text="我的录音"
+                android:textColor="@color/text_primary" android:textSize="16sp" android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout android:id="@+id/tvEmpty" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="vertical"
+            android:gravity="center" android:paddingTop="40dp" android:visibility="gone">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="暂无录音" android:textColor="@color/text_secondary"
+                android:textSize="16sp" android:textStyle="bold" android:layout_marginBottom="6dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="轻触上方按钮开始录制" android:textColor="@color/text_hint" android:textSize="13sp"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvRecordings"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="16dp"
+            android:clipToPadding="false"/>
+    </LinearLayout>
+
+    <!-- 底部导航栏（4个Tab） -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:background="@drawable/bottom_nav_bg"
+        android:elevation="12dp"
+        android:orientation="horizontal">
+
+        <!-- 录音 Tab -->
+        <LinearLayout android:id="@+id/tabRecorder" android:layout_width="0dp"
+            android:layout_height="match_parent" android:layout_weight="1"
+            android:orientation="vertical" android:gravity="center">
+            <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_mic" app:tint="@color/primary"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="录音" android:textColor="@color/primary" android:textSize="10sp"
+                android:textStyle="bold" android:layout_marginTop="3dp"/>
+            <View android:layout_width="20dp" android:layout_height="3dp"
+                android:background="@drawable/tab_indicator" android:layout_marginTop="3dp"/>
+        </LinearLayout>
+
+        <!-- 图片问答 Tab -->
+        <LinearLayout android:id="@+id/tabPhotoQA" android:layout_width="0dp"
+            android:layout_height="match_parent" android:layout_weight="1"
+            android:orientation="vertical" android:gravity="center">
+            <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_camera" app:tint="@color/text_hint"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="图片问答" android:textColor="@color/text_hint" android:textSize="10sp"
+                android:layout_marginTop="3dp"/>
+            <View android:layout_width="20dp" android:layout_height="3dp"
+                android:background="@drawable/tab_indicator" android:layout_marginTop="3dp"
+                android:visibility="invisible"/>
+        </LinearLayout>
+
+        <!-- AI助手 Tab -->
+        <LinearLayout android:id="@+id/tabAiAssistant" android:layout_width="0dp"
+            android:layout_height="match_parent" android:layout_weight="1"
+            android:orientation="vertical" android:gravity="center">
+            <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_robot" app:tint="@color/text_hint"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="AI助手" android:textColor="@color/text_hint" android:textSize="10sp"
+                android:layout_marginTop="3dp"/>
+            <View android:layout_width="20dp" android:layout_height="3dp"
+                android:background="@drawable/tab_indicator" android:layout_marginTop="3dp"
+                android:visibility="invisible"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
