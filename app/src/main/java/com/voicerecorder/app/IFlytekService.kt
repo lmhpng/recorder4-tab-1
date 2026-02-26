@@ -61,9 +61,8 @@ object IFlytekService {
             system = "你是录音命名助手。根据录音内容生成一个简洁准确的名称，要求：5-15个汉字，不含标点，直接输出名称本身，不要任何解释。",
             user = "根据以下录音内容生成名称：\n\n$transcript",
             maxTokens = 30
-        ).trim().replace(Regex("[「」《》【】\\[\\]""''。，！？、]"), "").take(20)
+        ).trim().replace(Regex("[「」《》【】\\[\\]\"'。，！？、]"), "").take(20)
     }
-
     // ── 提取待办事项 ──
     suspend fun extractTodos(transcript: String): String = withContext(Dispatchers.IO) {
         callChatSimple(
