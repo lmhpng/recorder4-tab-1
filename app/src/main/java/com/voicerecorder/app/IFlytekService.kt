@@ -140,7 +140,7 @@ object IFlytekService {
         }
 
         val body = JSONObject().apply {
-            put("model", "Qwen/Qwen2.5-VL-7B-Instruct")
+            put("model", "Pro/Qwen/Qwen2.5-VL-7B-Instruct")
             put("max_tokens", 1500)
             put("messages", messages)
         }
